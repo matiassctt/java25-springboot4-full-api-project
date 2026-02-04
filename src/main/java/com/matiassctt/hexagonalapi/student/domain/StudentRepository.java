@@ -1,6 +1,7 @@
 package com.matiassctt.hexagonalapi.student.domain;
 
-import com.matiassctt.hexagonalapi.shared.pagination.Pagination;
+import com.matiassctt.hexagonalapi.shared.infrastructure.model.response.PaginationResponse;
+import com.matiassctt.hexagonalapi.shared.infrastructure.model.request.PaginationRequest;
 import java.util.Optional;
 
 public interface StudentRepository {
@@ -9,5 +10,5 @@ public interface StudentRepository {
 
     Optional<Student> findById(Long id);
 
-    Pagination<Student> search(int page, int size);
+    PaginationResponse<Student> search(PaginationRequest paginationRequest, StudentSearchCriteria criteria);
 }

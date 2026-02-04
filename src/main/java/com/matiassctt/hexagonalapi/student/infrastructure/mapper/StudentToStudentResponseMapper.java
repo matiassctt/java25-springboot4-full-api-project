@@ -9,6 +9,6 @@ public final class StudentToStudentResponseMapper {
     }
 
     public static StudentResponse fromDomain(Student student) {
-        return new StudentResponse(student.getId(), student.getName());
+        return new StudentResponse(student.getId(), student.getName(), student.getActive());
     }
 }

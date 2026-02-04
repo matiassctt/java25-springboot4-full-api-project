@@ -1,16 +1,16 @@
-package com.matiassctt.hexagonalapi.shared.pagination;
+package com.matiassctt.hexagonalapi.shared.infrastructure.model.response;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class Pagination<T> {
+public class PaginationResponse<T> {
 
     private final List<T> items;
     private final long totalItems;
     private final int page;
     private final int totalPages;
 
-    public Pagination(
+    public PaginationResponse(
             List<T> items,
             long totalItems,
             int page,
@@ -22,11 +22,11 @@ public class Pagination<T> {
         this.totalPages = totalPages;
     }
 
-    public static <D, R> Pagination<R> from(
-            Pagination<D> result,
+    public static <D, R> PaginationResponse<R> from(
+            PaginationResponse<D> result,
             Function<D, R> mapper
     ) {
-        return new Pagination<>(
+        return new PaginationResponse<>(
                 result.getItems().stream().map(mapper).toList(),
                 result.getTotalItems(),
                 result.getPage(),

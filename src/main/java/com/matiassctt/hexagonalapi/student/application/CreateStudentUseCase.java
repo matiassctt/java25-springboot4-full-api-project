@@ -11,8 +11,8 @@ public class CreateStudentUseCase {
         this.repository = repository;
     }
 
-    public Student execute(String name) {
-        Student student = new Student(null, name);
+    public Student execute(String name, Boolean active) {
+        Student student = new Student(null, name, active);
         return repository.save(student);
     }
 }

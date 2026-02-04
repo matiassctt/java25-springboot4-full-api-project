@@ -12,19 +12,21 @@ public class StudentEntity {
     private Long id;
 
     private String name;
+    private Boolean active;
 
     protected StudentEntity() {}
 
-    public StudentEntity(Long id, String name) {
+    public StudentEntity(Long id, String name, Boolean active) {
         this.id = id;
         this.name = name;
+        this.active = active;
     }
 
     public static StudentEntity fromDomain(Student student) {
-        return new StudentEntity(student.getId(), student.getName());
+        return new StudentEntity(student.getId(), student.getName(), student.getActive());
     }
 
     public Student toDomain() {
-        return new Student(id, name);
+        return new Student(id, name, active);
     }
 }

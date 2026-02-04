@@ -17,6 +17,6 @@ public class CreateStudentController {
 
     @PostMapping
     public Student create(@RequestBody CreateStudentRequest request) {
-        return createStudentUseCase.execute(request.name());
+        return createStudentUseCase.execute(request.name(), request.active());
     }
 }

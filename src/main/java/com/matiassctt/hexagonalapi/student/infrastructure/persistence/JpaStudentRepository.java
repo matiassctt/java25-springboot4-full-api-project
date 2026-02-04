@@ -1,11 +1,16 @@
 package com.matiassctt.hexagonalapi.student.infrastructure.persistence;
 
-import com.matiassctt.hexagonalapi.shared.pagination.Pagination;
+import com.matiassctt.hexagonalapi.shared.infrastructure.model.enums.SortDirection;
+import com.matiassctt.hexagonalapi.shared.infrastructure.model.response.PaginationResponse;
+import com.matiassctt.hexagonalapi.shared.infrastructure.model.request.PaginationRequest;
+import com.matiassctt.hexagonalapi.student.domain.StudentSearchCriteria;
+import org.springframework.data.jpa.domain.Specification;
 import com.matiassctt.hexagonalapi.student.domain.Student;
 import com.matiassctt.hexagonalapi.student.domain.StudentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -31,11 +36,28 @@ public class JpaStudentRepository implements StudentRepository {
     }
 
     @Override
-    public Pagination<Student> search(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<StudentEntity> pageResult = jpaRepository.findAll(pageable);
+    public PaginationResponse<Student> search(
+            PaginationRequest pagination,
+            StudentSearchCriteria criteria
+    ) {
+        Sort sort = Sort.by(
+                pagination.direction() == SortDirection.ASC ? Sort.Direction.ASC : Sort.Direction.DESC,
+                pagination.sortBy()
+        );
 
-        return new Pagination<>(
+        Pageable pageable = PageRequest.of(pagination.page(), pagination.size(), sort);
+
+        Specification<StudentEntity> spec =
+                Specification.where(
+                        StudentSpecifications.withName(criteria.name())
+                ).and(
+                        StudentSpecifications.withActive(criteria.active())
+                );
+
+
+        Page<StudentEntity> pageResult = jpaRepository.findAll(spec, pageable);
+
+        return new PaginationResponse<>(
                 pageResult.getContent()
                         .stream()
                         .map(StudentEntity::toDomain)
