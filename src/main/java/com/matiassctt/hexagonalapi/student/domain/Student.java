@@ -1,5 +1,7 @@
 package com.matiassctt.hexagonalapi.student.domain;
 
+import com.matiassctt.hexagonalapi.student.domain.exception.StudentParameterIsRequiredException;
+
 public class Student {
 
     private final Long id;
@@ -8,11 +10,20 @@ public class Student {
 
     public Student(Long id, String name, Boolean active) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Student name cannot be empty");
+            throw new StudentParameterIsRequiredException("name");
         }
+
+        if (active == null) {
+            throw new StudentParameterIsRequiredException("active");
+        }
+
         this.id = id;
         this.name = name;
         this.active = active;
+    }
+
+    public Student update(String name, Boolean active) {
+        return new Student(this.id, name, active);
     }
 
     public Long getId() {

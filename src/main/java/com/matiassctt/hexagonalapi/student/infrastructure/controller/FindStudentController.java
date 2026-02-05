@@ -18,9 +18,11 @@ public class FindStudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponse> findById(@PathVariable Long id) {
-        return findStudentUseCase.execute(id)
-                .map(StudentToStudentResponseMapper::fromDomain)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        StudentResponse response =
+                StudentToStudentResponseMapper.fromDomain(
+                        findStudentUseCase.execute(id)
+                );
+
+        return ResponseEntity.ok(response);
     }
 }

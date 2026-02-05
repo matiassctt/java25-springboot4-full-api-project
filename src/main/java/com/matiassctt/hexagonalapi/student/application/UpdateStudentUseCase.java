@@ -4,15 +4,19 @@ import com.matiassctt.hexagonalapi.student.application.exception.StudentNotFound
 import com.matiassctt.hexagonalapi.student.domain.Student;
 import com.matiassctt.hexagonalapi.student.domain.StudentRepository;
 
-public class FindStudentUseCase {
+public class UpdateStudentUseCase {
 
     private final StudentRepository repository;
 
-    public FindStudentUseCase(StudentRepository repository) {
+    public UpdateStudentUseCase(StudentRepository repository) {
         this.repository = repository;
     }
 
-    public Student execute(Long id) {
-        return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+    public Student execute(Long id, String name, Boolean active) {
+        Student student = repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+
+        Student updated = student.update(name, active);
+
+        return repository.save(updated);
     }
 }

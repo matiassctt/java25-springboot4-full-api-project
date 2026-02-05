@@ -1,8 +1,10 @@
 package com.matiassctt.hexagonalapi.student.infrastructure.controller;
 
 import com.matiassctt.hexagonalapi.student.application.CreateStudentUseCase;
-import com.matiassctt.hexagonalapi.student.domain.Student;
+import com.matiassctt.hexagonalapi.student.infrastructure.mapper.StudentToStudentResponseMapper;
 import com.matiassctt.hexagonalapi.student.infrastructure.model.request.CreateStudentRequest;
+import com.matiassctt.hexagonalapi.student.infrastructure.model.response.StudentResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +18,12 @@ public class CreateStudentController {
     }
 
     @PostMapping
-    public Student create(@RequestBody CreateStudentRequest request) {
-        return createStudentUseCase.execute(request.name(), request.active());
+    public ResponseEntity<StudentResponse> create(@RequestBody CreateStudentRequest request) {
+        StudentResponse response =
+                StudentToStudentResponseMapper.fromDomain(
+                        createStudentUseCase.execute(request.name(), request.active())
+                );
+
+        return ResponseEntity.ok(response);
     }
 }
