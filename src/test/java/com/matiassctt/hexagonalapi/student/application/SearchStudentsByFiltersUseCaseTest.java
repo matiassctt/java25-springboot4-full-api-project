@@ -3,9 +3,8 @@ package com.matiassctt.hexagonalapi.student.application;
 import com.matiassctt.hexagonalapi.shared.domain.pagination.Pagination;
 import com.matiassctt.hexagonalapi.shared.infrastructure.model.request.PaginationRequest;
 import com.matiassctt.hexagonalapi.shared.model.request.PaginationRequestFixture;
-import com.matiassctt.hexagonalapi.student.StudentFixture;
-import com.matiassctt.hexagonalapi.student.StudentSearchCriteriaFixture;
-import com.matiassctt.hexagonalapi.student.application.exception.StudentNotFoundException;
+import com.matiassctt.hexagonalapi.student.fixtures.StudentFixture;
+import com.matiassctt.hexagonalapi.student.fixtures.StudentSearchCriteriaFixture;
 import com.matiassctt.hexagonalapi.student.domain.Student;
 import com.matiassctt.hexagonalapi.student.domain.StudentRepository;
 import com.matiassctt.hexagonalapi.student.domain.StudentSearchCriteria;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

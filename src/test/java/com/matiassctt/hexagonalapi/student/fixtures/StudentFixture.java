@@ -1,4 +1,4 @@
-package com.matiassctt.hexagonalapi.student;
+package com.matiassctt.hexagonalapi.student.fixtures;
 
 import java.util.Random;
 import com.matiassctt.hexagonalapi.student.domain.Student;

@@ -1,6 +1,6 @@
 package com.matiassctt.hexagonalapi.student.application;
 
-import com.matiassctt.hexagonalapi.student.StudentFixture;
+import com.matiassctt.hexagonalapi.student.fixtures.StudentFixture;
 import com.matiassctt.hexagonalapi.student.domain.Student;
 import com.matiassctt.hexagonalapi.student.domain.StudentRepository;
 import org.junit.jupiter.api.Test;

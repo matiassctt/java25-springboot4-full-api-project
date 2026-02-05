@@ -1,4 +1,4 @@
-package com.matiassctt.hexagonalapi.student;
+package com.matiassctt.hexagonalapi.student.fixtures;
 
 import java.util.Optional;
 import com.matiassctt.hexagonalapi.student.domain.StudentSearchCriteria;
