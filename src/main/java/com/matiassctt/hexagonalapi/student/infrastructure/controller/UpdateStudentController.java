@@ -18,7 +18,7 @@ public class UpdateStudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentResponse> create(@PathVariable Long id, @RequestBody UpdateStudentRequest request) {
+    public ResponseEntity<StudentResponse> update(@PathVariable Long id, @RequestBody UpdateStudentRequest request) {
         StudentResponse response =
                 StudentToStudentResponseMapper.fromDomain(
                         updateStudentUseCase.execute(id, request.name(), request.active())

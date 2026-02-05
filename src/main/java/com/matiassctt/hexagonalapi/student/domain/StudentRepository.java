@@ -11,4 +11,6 @@ public interface StudentRepository {
     Optional<Student> findById(Long id);
 
     PaginationResponse<Student> search(PaginationRequest paginationRequest, StudentSearchCriteria criteria);
+
+    void delete(Student student);
 }

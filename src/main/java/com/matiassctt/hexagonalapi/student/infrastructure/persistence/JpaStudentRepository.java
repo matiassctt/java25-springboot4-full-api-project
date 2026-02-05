@@ -68,4 +68,9 @@ public class JpaStudentRepository implements StudentRepository {
         );
     }
 
+    @Override
+    public void delete(Student student) {
+        StudentEntity entity = StudentEntity.fromDomain(student);
+        jpaRepository.delete(entity);
+    }
 }

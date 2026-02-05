@@ -1,9 +1,6 @@
 package com.matiassctt.hexagonalapi.student.config;
 
-import com.matiassctt.hexagonalapi.student.application.CreateStudentUseCase;
-import com.matiassctt.hexagonalapi.student.application.FindStudentUseCase;
-import com.matiassctt.hexagonalapi.student.application.SearchStudentsUseCase;
-import com.matiassctt.hexagonalapi.student.application.UpdateStudentUseCase;
+import com.matiassctt.hexagonalapi.student.application.*;
 import com.matiassctt.hexagonalapi.student.domain.StudentRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,4 +28,8 @@ public class StudentUseCaseConfig {
         return new SearchStudentsUseCase(repo);
     }
 
+    @Bean
+    DeleteStudentUseCase deleteStudentUseCase(StudentRepository repo) {
+        return new DeleteStudentUseCase(repo);
+    }
 }
