@@ -1,7 +1,7 @@
 package com.matiassctt.hexagonalapi.student.infrastructure.persistence;
 
 import com.matiassctt.hexagonalapi.shared.infrastructure.model.enums.SortDirection;
-import com.matiassctt.hexagonalapi.shared.infrastructure.model.response.PaginationResponse;
+import com.matiassctt.hexagonalapi.shared.domain.pagination.Pagination;
 import com.matiassctt.hexagonalapi.shared.infrastructure.model.request.PaginationRequest;
 import com.matiassctt.hexagonalapi.student.domain.StudentSearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
@@ -36,7 +36,7 @@ public class JpaStudentRepository implements StudentRepository {
     }
 
     @Override
-    public PaginationResponse<Student> search(
+    public Pagination<Student> searchByFilter(
             PaginationRequest pagination,
             StudentSearchCriteria criteria
     ) {
@@ -57,7 +57,7 @@ public class JpaStudentRepository implements StudentRepository {
 
         Page<StudentEntity> pageResult = jpaRepository.findAll(spec, pageable);
 
-        return new PaginationResponse<>(
+        return new Pagination<>(
                 pageResult.getContent()
                         .stream()
                         .map(StudentEntity::toDomain)

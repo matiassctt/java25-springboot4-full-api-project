@@ -24,8 +24,8 @@ public class StudentUseCaseConfig {
     }
 
     @Bean
-    SearchStudentsUseCase searchStudentsUseCase(StudentRepository repo) {
-        return new SearchStudentsUseCase(repo);
+    SearchStudentsByFiltersUseCase searchStudentsUseCase(StudentRepository repo) {
+        return new SearchStudentsByFiltersUseCase(repo);
     }
 
     @Bean

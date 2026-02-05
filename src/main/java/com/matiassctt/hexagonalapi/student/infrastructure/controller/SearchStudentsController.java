@@ -1,8 +1,8 @@
 package com.matiassctt.hexagonalapi.student.infrastructure.controller;
 
 import com.matiassctt.hexagonalapi.shared.infrastructure.model.request.PaginationRequest;
-import com.matiassctt.hexagonalapi.shared.infrastructure.model.response.PaginationResponse;
-import com.matiassctt.hexagonalapi.student.application.SearchStudentsUseCase;
+import com.matiassctt.hexagonalapi.shared.domain.pagination.Pagination;
+import com.matiassctt.hexagonalapi.student.application.SearchStudentsByFiltersUseCase;
 import com.matiassctt.hexagonalapi.student.domain.Student;
 import com.matiassctt.hexagonalapi.student.domain.StudentSearchCriteria;
 import com.matiassctt.hexagonalapi.student.infrastructure.mapper.StudentToStudentResponseMapper;
@@ -19,14 +19,14 @@ import java.util.Optional;
 @RequestMapping("/students")
 public class SearchStudentsController {
 
-    private final SearchStudentsUseCase searchStudentsUseCase;
+    private final SearchStudentsByFiltersUseCase searchStudentsUseCase;
 
-    public SearchStudentsController(SearchStudentsUseCase searchStudentsUseCase) {
+    public SearchStudentsController(SearchStudentsByFiltersUseCase searchStudentsUseCase) {
         this.searchStudentsUseCase = searchStudentsUseCase;
     }
 
     @GetMapping
-    public ResponseEntity<PaginationResponse<StudentResponse>> search(
+    public ResponseEntity<Pagination<StudentResponse>> search(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") StudentSortField sortBy,
@@ -43,9 +43,9 @@ public class SearchStudentsController {
 
         StudentSearchCriteria criteria = new StudentSearchCriteria(filters.name(), filters.active());
 
-        PaginationResponse<Student> result = searchStudentsUseCase.execute(pagination, criteria);
+        Pagination<Student> result = searchStudentsUseCase.execute(pagination, criteria);
 
-        PaginationResponse<StudentResponse> response = PaginationResponse.from(result, StudentToStudentResponseMapper::fromDomain);
+        Pagination<StudentResponse> response = Pagination.from(result, StudentToStudentResponseMapper::fromDomain);
 
         return ResponseEntity.ok(response);
     }
